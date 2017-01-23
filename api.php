@@ -82,8 +82,13 @@ header('Access-Control-Allow-Headers: Content-Type,x-prototype-version,x-request
 		}
 
 
+		private function insert(){
+			$data= $this->getValueByKey($this->_query_url_param);
 
-
+				$ret=null;
+				$ret=$this->manager->insertCustomer($data);
+				$this->get_request_data($ret);
+		}
 
 
 

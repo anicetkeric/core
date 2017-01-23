@@ -97,7 +97,30 @@ class DataManager extends Manager
         }
     }
 
+    public function insertCustomer(Data $customer) {
 
+        $sql = "INSERT INTO `customer`(`firstNameCustommer`, `lastNameCustommer`, `emailCustommer`, `addressCustommer`, `cityCustommer`, `countryCustommer`) VALUES (:fname,:lname,:email,:adr,:city,:country)";
+
+        $requete= $this->_db->prepare($sql);
+        $requete->bindValue(":fname", $customer->getFirstNameCustomer());
+        $requete->bindValue(":lname",  $customer->getLastNameCustomer());
+        $requete->bindValue(":email",  $customer->getEmailCustomer());
+        $requete->bindValue(":adr",  $customer->getAddressCustomer());
+        $requete->bindValue(":city",  $customer->getCityCustomer());
+        $requete->bindValue(":country",  $customer->getCountryCustomer());
+
+        try {
+
+            if($requete->execute()){
+
+                return $this->_db->lastInsertId();
+
+            }else{ return   null;}
+
+        } catch (Exception $exc) {
+            return  -1;
+        }
+    }
 
 
 
